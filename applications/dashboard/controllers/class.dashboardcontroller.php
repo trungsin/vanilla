@@ -36,6 +36,7 @@ class DashboardController extends Gdn_Controller {
       $this->AddJsFile('jquery.form.js');
       $this->AddJsFile('jquery.popup.js');
       $this->AddJsFile('jquery.gardenhandleajaxform.js');
+      $this->AddJsFile('dropdown.js');
       $this->AddJsFile('magnific-popup.min.js');
       $this->AddJsFile('jquery.autosize.min.js');
       $this->AddJsFile('global.js');
@@ -48,6 +49,11 @@ class DashboardController extends Gdn_Controller {
             $this->AddCssFile('https://fonts.googleapis.com/css?family=Rokkitt');
          $this->AddCssFile('admin.css');
          $this->AddCssFile('magnific-popup.css');
+	 $this->AddCssFile('type.css');
+	 $this->AddCssFile('badges.css');
+	 $this->AddCssFile('buttons.css');
+	 $this->AddCssFile('dropdowns.css');
+
       }
 
       $this->MasterView = 'admin';
