@@ -14,7 +14,7 @@ if ($User->Banned) {
    if ($BannedPhoto)
       $Photo = Gdn_Upload::Url($BannedPhoto);
 }
-   
+
 if ($Photo) {
 ?>
    <div class="Photo PhotoWrap PhotoWrapLarge <?php echo GetValue('_CssClass', $User); ?>">
@@ -23,14 +23,21 @@ if ($Photo) {
          $Img = Img($Photo, array('class' => 'ProfilePhotoLarge'));
       else
          $Img = Img(Gdn_Upload::Url(ChangeBasename($Photo, 'p%s')), array('class' => 'ProfilePhotoLarge'));
-         
+
       if (!$User->Banned && C('Garden.Profile.EditPhotos', TRUE) && (Gdn::Session()->UserID == $User->UserID || Gdn::Session()->CheckPermission('Garden.Users.Edit')))
          echo Anchor(Wrap(T('Change Picture')), '/profile/picture?userid='.$User->UserID, 'ChangePicture');
-      
+
       echo $Img;
       ?>
    </div>
 <?php } else if ($User->UserID == Gdn::Session()->UserID || Gdn::Session()->CheckPermission('Garden.Users.Edit')) { ?>
-   <div class="Photo"><?php echo Anchor(T('Add a Profile Picture'), '/profile/picture?userid='.$User->UserID, 'AddPicture BigButton'); ?></div>
+   <?php if (function_exists('UserPhotoDefaultUrl')): ?>
+      <div class="Photo PhotoWrap PhotoWrapLarge">
+         <?php echo Anchor(T('Add a Profile Picture'), '/profile/picture?userid='.$User->UserID, 'ChangePicture'); ?>
+         <?php echo Img(UserPhotoDefaultUrl($User, array('Size' => 200)), array('class' => 'ProfilePhotoLarge')); ?>
+      </div>
+   <?php else: ?>
+      <div class="Photo"><?php echo Anchor(T('Add a Profile Picture'), '/profile/picture?userid='.$User->UserID, 'AddPicture BigButton'); ?></div>
+   <?php endif; ?>
 <?php
 }
